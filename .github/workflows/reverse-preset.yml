@@ -28,6 +28,8 @@ jobs:
           node --check lib/reverse/tools.js
           node --check lib/reverse/workspace.js
           node --check lib/reverse/doctor.js
+          node --check lib/reverse/view.js
+          node --check lib/reverse/ui.js
           node --check lib/identity.js
           node --check lib/index.js
       - name: Reverse preset unit tests
