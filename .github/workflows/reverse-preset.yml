@@ -11,7 +11,7 @@ on:
       - "lib/index.js"
       - "presets/reverse-engineering/**"
       - "skills/reverse-engineering/**"
-      - "tests/reverse-preset.test.mjs"
+      - "tests/reverse-*.test.mjs"
       - "package.json"
 
 jobs:
@@ -25,6 +25,9 @@ jobs:
       - name: Syntax checks
         run: |
           node --check lib/reverse/index.js
+          node --check lib/reverse/tools.js
+          node --check lib/reverse/workspace.js
+          node --check lib/reverse/doctor.js
           node --check lib/identity.js
           node --check lib/index.js
       - name: Reverse preset unit tests

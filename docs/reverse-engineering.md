@@ -34,3 +34,22 @@ The bundled skill is only installed if missing; user modifications are preserved
 - REA's compact schema mode reduces schema size, not tool count; tool registration can consume substantial context.
 - dsh-purge applies global host patches, tool hooks and runtime policies elsewhere. This change isolates reverse-mode-specific REA tools and skips global dsh-purge prompt injection in that mode, but does **not** undo existing host-wide patches or constitute a security sandbox.
 - This is not the upstream REA or official DeepSeek Harness distribution.
+
+
+## Phase 2: notebook, readiness and checkpoint tools
+
+The selected reverse preset now exposes:
+- reverse_environment_check: read-only Node/REA PATH inspection (not an MCP handshake).
+- reverse_project_open: bind one target to the DSH session, without touching the target.
+- reverse_project_status: recover saved phases and page evidence pointers.
+- reverse_evidence_add: record one observed/inferred/unknown statement and an exact source pointer. Observed claims require tool name and evidence ID or location; tool results are NOT revalidated.
+- reverse_phase_advance: move one phase scope → inventory → analysis → validation → report; creates a durable checkpoint.
+- reverse_report_export: write a Markdown record under $DSH_HOME/reverse-engineering/reports, without accepting arbitrary output paths.
+
+Notebook state is per DSH session in $DSH_HOME/reverse-engineering/projects/<sha256(session-id)>.json. It uses atomic file replacement and fixed file paths; it never stores REA's full tool output and does not replace REA Evidence retention. Reports are agent-authored and must be corroborated.
+
+### Test
+
+    npm run test:reverse
+
+The repository includes CI on the feature branch, testing tool registration, per-session isolation, phase gating, evidence references, path safety and report export. Live DSH/Web/desktop smoke-testing is still required before shipping. Sub-agent orchestration and a graphical evidence explorer are deliberately deferred.
