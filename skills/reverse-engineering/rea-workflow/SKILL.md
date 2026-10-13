@@ -14,3 +14,16 @@ description: Use for authorized reverse engineering of shipped binaries, Electro
 7. Only if explicitly requested, build a clean-room equivalent and validate it with tests. Do not imply generated code is the original source.
 
 Do not automatically download analysis engines, run an untrusted target, tamper with protections, or modify the inspected artifact.
+
+
+## Persistent notebook and phase progression
+
+Only when starting an actual analysis task, call reverse_environment_check, then reverse_project_open with the explicit target, kind and question. The environment check is a file/PATH probe, NOT proof of a working REA MCP server. Independently inspect the real mcp__rea__ tool list. When reopening an existing session, call reverse_project_status before continuing.
+
+Follow five bounded stages in order: scope → inventory → analysis → validation → report.
+- Record significant original-tool findings with reverse_evidence_add as observed only when the exact source tool and its returned evidence_id or file/function location are known. The notebook cannot verify those references by itself. If no original source is available, use inferred or unknown, never fabricate provenance.
+- Call reverse_phase_advance with a concise completed-stage summary only after the work is real; advancement is one step and uses source-linked observations before validation.
+- Resume using reverse_project_status. Paged evidence and saved checkpoints are in DSH_HOME/reverse-engineering/projects; they are independent of REA's own MCP session retention.
+- Call reverse_report_export on request, or after entering the report stage. It writes Markdown under DSH_HOME/reverse-engineering/reports. Explain that it is a record of agent-authored annotations and must be checked against original REA evidence.
+- Work is one target per DSH session. For a different target start a new session to prevent mixing findings.
+- For now run as a single coordinating Agent. Do not use redteam's delegation or assume automatic subagent orchestration exists.

@@ -14,7 +14,8 @@
     "./redteam/ui": "./lib/redteam/ui.js",
     "./redteam/tools": "./lib/redteam/tools.js",
     "./package.json": "./package.json",
-    "./reverse": "./lib/reverse/index.js"
+    "./reverse": "./lib/reverse/index.js",
+    "./reverse/tools": "./lib/reverse/tools.js"
   },
   "bin": {
     "dsh-purge": "bin/dsh-purge.js"
@@ -37,7 +38,7 @@
   "scripts": {
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
     "build:client": "node scripts/build-client.mjs",
-    "test:reverse": "node --test tests/reverse-preset.test.mjs"
+    "test:reverse": "node --test tests/reverse-preset.test.mjs tests/reverse-workflow.test.mjs"
   },
   "license": "MIT",
   "keywords": [

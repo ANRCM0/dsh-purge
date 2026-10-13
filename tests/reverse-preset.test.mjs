@@ -4,7 +4,7 @@ import { mkdtempSync, existsSync, readFileSync, writeFileSync, rmSync } from 'no
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { readPresetDefinition } from '../lib/redteam/preset-composition.js'
-import { apply, PRESET_ID, prepareReverseAssets } from '../lib/reverse/index.js'
+import { apply, PRESET_ID, prepareReverseAssets, gitBlobSha } from '../lib/reverse/index.js'
 
 const presetDir = new URL('../presets/reverse-engineering/', import.meta.url).pathname
 
@@ -35,6 +35,21 @@ test('bundled skill is copied only if missing', () => {
   } finally {
     rmSync(home, { recursive: true, force: true })
   }
+})
+
+test('migrates unedited v1 skill to v2 but does not overwrite custom edits', () => {
+  const home = mkdtempSync(join(tmpdir(), 'dsh-reverse-upgrade-'))
+  const legacy = readFileSync(new URL('./fixtures/reverse-skill-v1.md', import.meta.url))
+  assert.equal(gitBlobSha(legacy), '4fa495694cc3c8ba14ca2e9c52a9f4f77e0bb44a')
+  try {
+    const { skillPath } = prepareReverseAssets(home)
+    writeFileSync(skillPath, legacy)
+    prepareReverseAssets(home)
+    assert.match(readFileSync(skillPath, 'utf8'), /Persistent notebook and phase progression/)
+    writeFileSync(skillPath, 'user customized the skill')
+    prepareReverseAssets(home)
+    assert.equal(readFileSync(skillPath, 'utf8'), 'user customized the skill')
+  } finally { rmSync(home, { recursive: true, force: true }) }
 })
 
 test('registers one preset with existing host registry and disposes cleanly', async () => {

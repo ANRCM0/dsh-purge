@@ -48,6 +48,10 @@
     env:
       REA_MCP_INPUT_SCHEMA_PROFILE: compact
 
+# Scoped notebook and environment tools: session state is durable, no global singleton.
+- id: reverse-workflow-tools
+  name: dsh-purge/reverse/tools
+
 - id: skill-filesystem
   name: '@deepseek-ai/dsh-skill-filesystem'
   config:
