@@ -7706,9 +7706,16 @@ const __dshPurgeReverse = (() => {
   function InstallerPanel({onDone}) {
     const [status,setStatus]=useState(null),[plan,setPlan]=useState(null);
     const [busy,setBusy]=useState(false),[message,setMessage]=useState(""),[error,setError]=useState("");
+    const [probe,setProbe]=useState(null);
     const refresh=async()=>{try{setStatus(await call({op:"reaStatus"}))}catch(e){setError(e.message)}};
     useEffect(()=>{let active=true;call({op:"reaStatus"}).then(s=>{if(active)setStatus(s)})
       .catch(e=>{if(active)setError(e.message)});return()=>{active=false}},[]);
+    const testMcp=async()=>{
+      setBusy(true);setError("");setProbe(null);
+      try{const result=await call({op:"reaProbe"});setProbe(result)}
+      catch(e){setError(e.message)}
+      finally{setBusy(false)}
+    };
     const preview=async action=>{
       setBusy(true);setError("");setMessage("");setPlan(null);
       try {const p=await call({op:"reaPlan",action});
@@ -7744,7 +7751,9 @@ const __dshPurgeReverse = (() => {
         h("button",{className:"dshp-rv-btn",type:"button",disabled:busy||!status?.installed,
           onClick:()=>preview("repair")},"修复"),
         h("button",{className:"dshp-rv-btn",type:"button",disabled:busy||!status?.managed,
-          onClick:()=>preview("uninstall")},"卸载")
+          onClick:()=>preview("uninstall")},"卸载"),
+        h("button",{className:"dshp-rv-btn",type:"button",disabled:busy||!status?.installed,
+          onClick:testMcp},"测试 MCP")
       ),
       plan?h("section",{className:"dshp-rv-row","aria-label":"安装计划预览"},
         h("strong",null,"待确认：",plan.action," · ",plan.version),
@@ -7757,7 +7766,13 @@ const __dshPurgeReverse = (() => {
       ):null,
       busy?h("p",{className:"dshp-rv-muted"},"正在处理，请勿重复操作…"):null,
       error?h("p",{role:"alert",className:"dshp-rv-error"},error):null,
-      message?h("p",{role:"status",className:"dshp-rv-muted"},message):null
+      message?h("p",{role:"status",className:"dshp-rv-muted"},message):null,
+      probe?h("div",{className:"dshp-rv-row",role:"status"},
+        h("strong",null,probe.connected?"MCP 握手成功":"MCP 未连接"),
+        h("div",null,"可发现工具：",probe.toolCount),
+        h("div",{className:"dshp-rv-code"},(probe.toolNames||[]).join(", ")),
+        h("p",{className:"dshp-rv-muted"},probe.note)
+      ):null
     )
   }
 

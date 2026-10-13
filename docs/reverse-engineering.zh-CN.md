@@ -70,3 +70,5 @@ Windows DSH 与 WSL 有不同 PATH。REA 在 WSL 中可用不代表 Windows 桌�
 - 安装和卸载后必须重新进入逆向 Agent 会话，以重新启动 MCP。仅有 npm 包存在不代表 MCP 握手或分析引擎成功。
 - 安装失败会报告 npm 有界错误输出；分析笔记、报告与 Skills 在 runtime 目录之外，卸载不会删除它们。
 - 安全说明：安装需要网络访问 npm 注册表，依赖属于外部供应链代码；前端管理接口只允许本机回环 DSH Web。Web 端可在外部浏览时读取项目，但不能远程执行安装或卸载。
+
+- 在「REA 环境」点击「测试 MCP」会临时启动 REA，执行 JSON-RPC initialize 和 tools/list，展示可发现的工具数及部分名称；不分析任何目标、不验证 Ghidra/IDA 等原生分析引擎。此测试必须在运行 DSH 的本机进行。

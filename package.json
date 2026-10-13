@@ -17,7 +17,8 @@
     "./reverse": "./lib/reverse/index.js",
     "./reverse/tools": "./lib/reverse/tools.js",
     "./reverse/ui": "./lib/reverse/ui.js",
-    "./reverse/install": "./lib/reverse/install.js"
+    "./reverse/install": "./lib/reverse/install.js",
+    "./reverse/connection": "./lib/reverse/connection.js"
   },
   "bin": {
     "dsh-purge": "bin/dsh-purge.js"
