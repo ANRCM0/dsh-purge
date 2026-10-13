@@ -7743,6 +7743,7 @@ const __dshPurgeReverse = (() => {
         h("div",{className:"dshp-rv-code"},"Node ",status.nodeVersion,
           status.nodeSupported?" · 符合要求":" · 不符合 REA 版本要求"),
         h("div",{className:"dshp-rv-code"},"独立安装目录：",status.runtime),
+        !status.installed&&status.globalExecutable?h("div",{className:"dshp-rv-muted"},"发现系统已安装的 REA：",status.globalExecutable,"。预设会在未托管安装时回退使用。"):null,
         h("p",{className:"dshp-rv-muted"},"安装不会改动系统全局 npm；本面板不代表 REA MCP 已握手成功。")
       ):h("p",{className:"dshp-rv-muted"},"正在检查环境…"),
       h("div",{className:"dshp-rv-header"},

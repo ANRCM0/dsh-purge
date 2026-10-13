@@ -72,3 +72,5 @@ Windows DSH 与 WSL 有不同 PATH。REA 在 WSL 中可用不代表 Windows 桌�
 - 安全说明：安装需要网络访问 npm 注册表，依赖属于外部供应链代码；前端管理接口只允许本机回环 DSH Web。Web 端可在外部浏览时读取项目，但不能远程执行安装或卸载。
 
 - 在「REA 环境」点击「测试 MCP」会临时启动 REA，执行 JSON-RPC initialize 和 tools/list，展示可发现的工具数及部分名称；不分析任何目标、不验证 Ghidra/IDA 等原生分析引擎。此测试必须在运行 DSH 的本机进行。
+
+如果系统已通过旧方式全局安装 REA，预设的启动器会在**未安装托管版**时尝试沿用 PATH 中的 `rea mcp`（Windows 为 `rea.cmd`）。一旦装入托管版会优先选择托管版。安装器状态独立显示托管版与系统版，避免将二者混淆。
