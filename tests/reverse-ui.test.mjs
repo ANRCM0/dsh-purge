@@ -61,6 +61,8 @@ test('Origin gate rejects cross-site and allows same host and loopback desktop a
   assert.equal(sameOrigin(req('https://other.example')), false)
   assert.equal(sameOrigin(req(undefined)), false)
   assert.equal(sameOrigin(req('app://dsh')), true)
+  assert.equal(sameOrigin(req('null')), true)
+  assert.equal(sameOrigin(req('null','localhost:3080','192.0.2.1')), false)
   assert.equal(sameOrigin(req('app://dsh','domain.example','8.8.8.8')), false)
   assert.equal(sameOrigin(req('http://domain.example','domain.example','8.8.8.8')), true)
 })

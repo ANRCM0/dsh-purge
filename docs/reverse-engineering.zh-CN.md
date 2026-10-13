@@ -59,3 +59,5 @@ Windows DSH 与 WSL 有不同 PATH。REA 在 WSL 中可用不代表 Windows 桌�
 
 自动化测试使用 npm run test:reverse。真实 DSH 上必须另行验证模式能否挂载、工具可否连接与调用，以及工作流对具体二进制的表现。
 本阶段没有加入可视化图谱或自动多 Agent 调度。插件原有的宿主全局补丁仍可能存在，本预设也不构成对不可信程序的执行沙箱。
+
+桌面 WebView 的 Origin 可能是 app:// 或 null；只在本机回环地址且 Host 是 localhost/127.0.0.1/[::1] 时允许这些特殊来源。远程访问仍要求 HTTP(S) Origin 与 Host 严格一致，接口无写操作。
