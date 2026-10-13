@@ -15,9 +15,10 @@ test('REA is only a scoped reverse preset entry', () => {
   assert.equal(server.name, '@deepseek-ai/dsh-mcp-client')
   assert.equal(server.config.serverName, 'rea')
   assert.equal(server.config.transport, 'stdio')
-  assert.equal(server.config.command, 'rea')
-  assert.deepEqual(server.config.args, ['mcp'])
+  assert.deepEqual(server.config.command, { __jsExpr: 'process.execPath' })
+  assert.deepEqual(server.config.args, [{ __jsExpr: "dshHomePath('reverse-engineering/rea-launcher.cjs')" }, 'mcp'])
   assert.equal(server.config.failOnStartupError, false)
+  assert.equal(server.config.env.ELECTRON_RUN_AS_NODE, '1')
   const persona = definition.plugins.find((entry) => entry.id === 'persona')
   assert.ok(persona.config.prefix.includes('untrusted evidence'))
   assert.equal(persona.config.suffix, '')
@@ -26,8 +27,9 @@ test('REA is only a scoped reverse preset entry', () => {
 test('bundled skill is copied only if missing', () => {
   const home = mkdtempSync(join(tmpdir(), 'dsh-reverse-'))
   try {
-    const { skillPath } = prepareReverseAssets(home)
+    const { skillPath, launcherPath } = prepareReverseAssets(home)
     assert.ok(existsSync(skillPath))
+    assert.match(readFileSync(launcherPath, 'utf8'), /dsh-purge REA launcher/)
     assert.match(readFileSync(skillPath, 'utf8'), /name: rea-workflow/)
     writeFileSync(skillPath, 'user edited skill')
     prepareReverseAssets(home)

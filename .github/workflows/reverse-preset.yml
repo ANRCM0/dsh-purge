@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/rea-reverse-agent-mvp
+      - feat/rea-managed-installer
   pull_request:
     paths:
       - "lib/reverse/**"
@@ -30,6 +31,9 @@ jobs:
           node --check lib/reverse/tools.js
           node --check lib/reverse/workspace.js
           node --check lib/reverse/doctor.js
+          node --check lib/reverse/install.js
+          node --check lib/reverse/connection.js
+          node --check lib/reverse/rea-launcher.cjs
           node --check lib/reverse/view.js
           node --check lib/reverse/ui.js
           node --check lib/reverse/client.js

@@ -84,7 +84,7 @@ test('tools are session-scoped, persist evidence and parse in the preset', async
   const entries = []
   const ctx = { tools: { register: tool => { entries.push(tool); return () => {} } } }
   registerReverseTools(ctx, def => def, root)
-  const expected = ['reverse_environment_check', 'reverse_project_open', 'reverse_project_status', 'reverse_evidence_add', 'reverse_phase_advance', 'reverse_report_export']
+  const expected = ['reverse_environment_check', 'reverse_rea_install_status', 'reverse_rea_install_plan', 'reverse_rea_install_apply', 'reverse_rea_mcp_probe', 'reverse_project_open', 'reverse_project_status', 'reverse_evidence_add', 'reverse_phase_advance', 'reverse_report_export']
   assert.deepEqual(entries.map(x => x.name), expected)
   const session = id => ({ agent: { session: { id } } })
   const invoke = async (name, args, sid='session-a') => JSON.parse(await entries.find(x=>x.name===name).execute(args, session(sid)))
