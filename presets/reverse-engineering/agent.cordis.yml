@@ -53,6 +53,7 @@
     toolCallTimeoutMs: 180000
     env:
       REA_MCP_INPUT_SCHEMA_PROFILE: compact
+      ELECTRON_RUN_AS_NODE: '1'
 
 # Scoped notebook and environment tools: session state is durable, no global singleton.
 - id: reverse-workflow-tools

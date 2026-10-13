@@ -76,3 +76,5 @@ Windows DSH 与 WSL 有不同 PATH。REA 在 WSL 中可用不代表 Windows 桌�
 如果系统已通过旧方式全局安装 REA，预设的启动器会在**未安装托管版**时尝试沿用 PATH 中的 `rea mcp`（Windows 为 `rea.cmd`）。一旦装入托管版会优先选择托管版。安装器状态独立显示托管版与系统版，避免将二者混淆。
 
 - 版本管理：插件固定内置的 REA 版本为 6.4.0；只有当后续插件提供更高的受支持版本，且发现旧版本属于 dsh-purge 托管安装时，才会出现可用的「更新」操作。不会在后台静默升级到 npm 最新版。
+
+桌面端补充：DSH Electron 子进程可能需要 `ELECTRON_RUN_AS_NODE=1` 才能将 Electron 可执行文件用作 Node 启动器，安装器与 MCP 已携带该环境变量。托管安装还需要可解析的 npm CLI；插件会检查 DSH Node 目录和 PATH 中常见位置，如果桌面发行版只携带 pnpm 而没有 npm，则会报告缺失，不会臆造安装命令或静默下载另一个 Node/npm。此环境仍需实机验收。
