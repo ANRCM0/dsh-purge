@@ -59,6 +59,10 @@
     - id: dsh-purge-redteam
       name: dsh-purge/redteam
 
+    # 逆向工程：独立 Agent 预设，REA MCP 只挂到该预设作用域
+    - id: dsh-purge-reverse
+      name: dsh-purge/reverse
+
     # 演练台事实库（SQLite），数据在 $DSH_HOME/redteam
     - id: dsh-purge-redteam-store
       name: dsh-purge/redteam/store
