@@ -1,0 +1,31 @@
+name: Reverse preset checks
+
+on:
+  push:
+    branches:
+      - feat/rea-reverse-agent-mvp
+  pull_request:
+    paths:
+      - "lib/reverse/**"
+      - "lib/identity.js"
+      - "lib/index.js"
+      - "presets/reverse-engineering/**"
+      - "skills/reverse-engineering/**"
+      - "tests/reverse-preset.test.mjs"
+      - "package.json"
+
+jobs:
+  reverse-preset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax checks
+        run: |
+          node --check lib/reverse/index.js
+          node --check lib/identity.js
+          node --check lib/index.js
+      - name: Reverse preset unit tests
+        run: npm run test:reverse

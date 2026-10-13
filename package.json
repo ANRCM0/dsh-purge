@@ -13,7 +13,8 @@
     "./redteam/store": "./lib/redteam/store.js",
     "./redteam/ui": "./lib/redteam/ui.js",
     "./redteam/tools": "./lib/redteam/tools.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./reverse": "./lib/reverse/index.js"
   },
   "bin": {
     "dsh-purge": "bin/dsh-purge.js"
@@ -35,7 +36,8 @@
   ],
   "scripts": {
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
-    "build:client": "node scripts/build-client.mjs"
+    "build:client": "node scripts/build-client.mjs",
+    "test:reverse": "node --test tests/reverse-preset.test.mjs"
   },
   "license": "MIT",
   "keywords": [
@@ -51,7 +53,9 @@
     "instructions",
     "rules",
     "prompt-eval",
-    "agent"
+    "agent",
+    "reverse-engineering",
+    "rea-agents"
   ],
   "repository": {
     "type": "git",

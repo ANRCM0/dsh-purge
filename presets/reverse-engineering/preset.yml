@@ -1,0 +1,3 @@
+name: 逆向工程
+description: 使用 REA 进行授权软件的静态分析、调用链追踪、运行行为观察和证据报告；需要单独安装 rea-agents。
+order: 20
