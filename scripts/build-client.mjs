@@ -71,4 +71,15 @@ const endAt = client.indexOf(END);
 if (beginAt < 0 || endAt < 0 || endAt < beginAt) throw new Error("drill markers out of order");
 client = client.slice(0, beginAt) + fragment + client.slice(endAt + END.length);
 writeFileSync(clientPath, client);
-console.log("embedded drill client into client.js (" + Buffer.byteLength(fragment) + " bytes fragment)");
+
+const reverseBegin = "/* __DSH_PURGE_REVERSE_BEGIN__ */";
+const reverseEnd = "/* __DSH_PURGE_REVERSE_END__ */";
+const reverseSource = readFileSync(join(root, "lib", "reverse", "client.js"), "utf8").trim();
+let built = readFileSync(clientPath, "utf8");
+const startReverse = built.indexOf(reverseBegin);
+const endReverse = built.indexOf(reverseEnd);
+if (startReverse < 0 || endReverse <= startReverse) throw new Error("client.js missing reverse workbench markers");
+built = built.slice(0, startReverse) + reverseBegin + "\n" + reverseSource + "\n" + built.slice(endReverse);
+writeFileSync(clientPath, built);
+console.log("embedded reverse workbench into client.js (" + Buffer.byteLength(reverseSource) + " bytes)");
+

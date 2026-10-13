@@ -63,6 +63,10 @@
     - id: dsh-purge-reverse
       name: dsh-purge/reverse
 
+    # 逆向工作台只读 HTTP 桥，仅供本机同源 DSH UI 读取
+    - id: dsh-purge-reverse-ui
+      name: dsh-purge/reverse/ui
+
     # 演练台事实库（SQLite），数据在 $DSH_HOME/redteam
     - id: dsh-purge-redteam-store
       name: dsh-purge/redteam/store

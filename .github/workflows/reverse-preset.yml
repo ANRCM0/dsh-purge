@@ -7,6 +7,8 @@ on:
   pull_request:
     paths:
       - "lib/reverse/**"
+      - "client.js"
+      - "scripts/build-client.mjs"
       - "lib/identity.js"
       - "lib/index.js"
       - "presets/reverse-engineering/**"
@@ -28,7 +30,16 @@ jobs:
           node --check lib/reverse/tools.js
           node --check lib/reverse/workspace.js
           node --check lib/reverse/doctor.js
+          node --check lib/reverse/view.js
+          node --check lib/reverse/ui.js
+          node --check lib/reverse/client.js
+          node --check client.js
+          node --check scripts/build-client.mjs
           node --check lib/identity.js
           node --check lib/index.js
+      - name: Check embedded client synchronization
+        run: |
+          npm run build:client
+          git diff --exit-code -- client.js
       - name: Reverse preset unit tests
         run: npm run test:reverse
