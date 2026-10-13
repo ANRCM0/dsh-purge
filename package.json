@@ -16,7 +16,8 @@
     "./package.json": "./package.json",
     "./reverse": "./lib/reverse/index.js",
     "./reverse/tools": "./lib/reverse/tools.js",
-    "./reverse/ui": "./lib/reverse/ui.js"
+    "./reverse/ui": "./lib/reverse/ui.js",
+    "./reverse/install": "./lib/reverse/install.js"
   },
   "bin": {
     "dsh-purge": "bin/dsh-purge.js"
@@ -39,7 +40,7 @@
   "scripts": {
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
     "build:client": "node scripts/build-client.mjs",
-    "test:reverse": "node --test tests/reverse-preset.test.mjs tests/reverse-workflow.test.mjs tests/reverse-ui.test.mjs"
+    "test:reverse": "node --test tests/reverse-preset.test.mjs tests/reverse-workflow.test.mjs tests/reverse-ui.test.mjs tests/reverse-install.test.mjs"
   },
   "license": "MIT",
   "keywords": [
