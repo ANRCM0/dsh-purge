@@ -38,7 +38,7 @@ test('source required for observed findings and bounded store', async () => disp
   const item = recordEvidence('s', { kind:'inferred', summary:'Maybe uses extensions' }, root)
   assert.equal(item.evidence.kind, 'inferred')
   assert.throws(() => advanceProject('s', { summary:'' }, root), /cannot be empty/)
-  assert.throws(() => openProject('s', { ...input, question:'', target:'/other' }, root), /another target/)
+  assert.throws(() => openProject('s', { ...input, question:'', target:'/other' }, root), /question cannot be empty/)
 }))
 
 test('ordered phases require provenance before validation and reject stale revisions', async () => disposable(async root => {

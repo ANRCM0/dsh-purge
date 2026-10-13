@@ -53,3 +53,5 @@ Notebook state is per DSH session in $DSH_HOME/reverse-engineering/projects/<sha
     npm run test:reverse
 
 The repository includes CI on the feature branch, testing tool registration, per-session isolation, phase gating, evidence references, path safety and report export. Live DSH/Web/desktop smoke-testing is still required before shipping. Sub-agent orchestration and a graphical evidence explorer are deliberately deferred.
+
+When upgrading from Phase 1, an exact unedited copy of the original v1 skill is replaced with the new v2 skill. Customized skills are never overwritten.
